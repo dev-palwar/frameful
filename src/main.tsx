@@ -7,7 +7,7 @@ import { RecorderProvider } from "./context/RecorderContext.tsx";
 
 // RecorderProvider wraps the router so recording state survives route changes
 createRoot(document.getElementById("root")!).render(
-  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+  <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
     <BrowserRouter>
       <RecorderProvider>
         <App />

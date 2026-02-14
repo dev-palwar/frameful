@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useRecorder } from "../context/RecorderContext";
 import { ArrowLeft, Monitor } from "lucide-react";
 import ToolBar from "@/components/shared/ToolBar";
+import VideoPlayer from "@/components/video/VideoPlayer";
 import { useState } from "react";
 
 export default function StudioPage() {
@@ -77,41 +78,10 @@ export default function StudioPage() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Left: Video Preview */}
         <div className="flex-1 flex items-center justify-center p-6 lg:p-10 bg-black/2 dark:bg-black/20">
-          <div className="w-full max-w-3xl">
-            <div className="relative p-8 lg:p-16 overflow-hidden shadow-2xl shadow-black/40 border border-border/30 group">
-              {/* Blurred Background Layer */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-all duration-700 scale-110 blur-[2px] opacity-80"
-                style={{
-                  backgroundImage: background ? `url(${background})` : "none",
-                  backgroundColor: background
-                    ? "transparent"
-                    : "rgb(59 130 246 / 0.1)",
-                }}
-              />
-
-              {/* Content Layer (Video) with Browser Frame Look */}
-              <div className="relative z-10 backdrop-blur-2xl bg-white/10 dark:bg-black/40 rounded-xl border border-white/20 shadow-2xl overflow-hidden">
-                {/* Browser Header */}
-                {/* <div
-                  className="h-8 bg-white/5 border-b border-white/10 flex items-center px-4 gap-1.5"
-                  aria-hidden="true"
-                >
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] shadow-sm" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e] shadow-sm" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#28c840] shadow-sm" />
-                </div> */}
-
-                <div className="p-1 bg-black/20 text-[0px]">
-                  <video
-                    id="studio-video-player"
-                    src={videoUrl}
-                    controls
-                    autoPlay
-                    className="w-full rounded-lg shadow-inner block"
-                  />
-                </div>
-              </div>
+          <div className="w-full max-w-4xl">
+            {/* Video Player with integrated background */}
+            <div className="bg-white/10 dark:bg-black/40 rounded-xl border border-white/20 overflow-hidden flex flex-col gap-8">
+              <VideoPlayer videoUrl={videoUrl} background={background} />
             </div>
             <p className="text-xs text-muted-foreground mt-3 text-center">
               Your recorded screen capture
