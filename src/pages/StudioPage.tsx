@@ -1,26 +1,13 @@
 import { useNavigate } from "react-router";
 import { useRecorder } from "../context/RecorderContext";
-import {
-  ArrowLeft,
-  Scissors,
-  Type,
-  Palette,
-  Music,
-  Layers,
-  Monitor,
-} from "lucide-react";
-
-const tools = [
-  { icon: Scissors, label: "Trim", description: "Cut and trim clips" },
-  { icon: Type, label: "Text", description: "Add text overlays" },
-  { icon: Palette, label: "Filters", description: "Apply color filters" },
-  { icon: Music, label: "Audio", description: "Add background audio" },
-  { icon: Layers, label: "Layers", description: "Manage layers" },
-];
+import { ArrowLeft, Monitor } from "lucide-react";
+import ToolBar from "@/components/shared/ToolBar";
+import { useState } from "react";
 
 export default function StudioPage() {
   const navigate = useNavigate();
   const { videoUrl, discardRecording } = useRecorder();
+  const [background, setBackground] = useState<string>("");
 
   const handleGoBack = () => {
     discardRecording();
@@ -89,16 +76,42 @@ export default function StudioPage() {
       {/* Studio Layout — split screen */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Left: Video Preview */}
-        <div className="flex-1 flex items-center justify-center p-6 lg:p-10 bg-black/[0.02] dark:bg-black/20">
+        <div className="flex-1 flex items-center justify-center p-6 lg:p-10 bg-black/2 dark:bg-black/20">
           <div className="w-full max-w-3xl">
-            <div className="rounded-xl overflow-hidden shadow-2xl shadow-black/20 border border-border/30">
-              <video
-                id="studio-video-player"
-                src={videoUrl}
-                controls
-                autoPlay
-                className="w-full bg-black"
+            <div className="relative p-8 lg:p-16 overflow-hidden shadow-2xl shadow-black/40 border border-border/30 group">
+              {/* Blurred Background Layer */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-all duration-700 scale-110 blur-[2px] opacity-80"
+                style={{
+                  backgroundImage: background ? `url(${background})` : "none",
+                  backgroundColor: background
+                    ? "transparent"
+                    : "rgb(59 130 246 / 0.1)",
+                }}
               />
+
+              {/* Content Layer (Video) with Browser Frame Look */}
+              <div className="relative z-10 backdrop-blur-2xl bg-white/10 dark:bg-black/40 rounded-xl border border-white/20 shadow-2xl overflow-hidden">
+                {/* Browser Header */}
+                {/* <div
+                  className="h-8 bg-white/5 border-b border-white/10 flex items-center px-4 gap-1.5"
+                  aria-hidden="true"
+                >
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] shadow-sm" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e] shadow-sm" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#28c840] shadow-sm" />
+                </div> */}
+
+                <div className="p-1 bg-black/20 text-[0px]">
+                  <video
+                    id="studio-video-player"
+                    src={videoUrl}
+                    controls
+                    autoPlay
+                    className="w-full rounded-lg shadow-inner block"
+                  />
+                </div>
+              </div>
             </div>
             <p className="text-xs text-muted-foreground mt-3 text-center">
               Your recorded screen capture
@@ -107,39 +120,7 @@ export default function StudioPage() {
         </div>
 
         {/* Right: Tools Panel */}
-        <div className="w-full lg:w-80 xl:w-96 border-t lg:border-t-0 lg:border-l border-border/50 bg-card/50 backdrop-blur-xl p-6 shrink-0 overflow-y-auto">
-          <h2 className="text-sm font-semibold text-foreground mb-1">Tools</h2>
-          <p className="text-xs text-muted-foreground mb-6">
-            Editing tools coming soon
-          </p>
-
-          <div className="space-y-2">
-            {tools.map((tool) => (
-              <button
-                key={tool.label}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-muted/50 transition-colors group cursor-pointer"
-              >
-                <div className="w-9 h-9 rounded-lg bg-linear-to-br from-violet-500/10 to-fuchsia-500/10 dark:from-violet-500/20 dark:to-fuchsia-500/20 flex items-center justify-center group-hover:from-violet-500/20 group-hover:to-fuchsia-500/20 transition-colors shrink-0">
-                  <tool.icon className="w-4 h-4 text-violet-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">
-                    {tool.label}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {tool.description}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-8 p-4 rounded-xl border border-dashed border-border/70 bg-muted/20">
-            <p className="text-xs text-muted-foreground text-center">
-              More editing features will appear here
-            </p>
-          </div>
-        </div>
+        <ToolBar onBackgroundSelect={setBackground} />
       </div>
     </div>
   );
