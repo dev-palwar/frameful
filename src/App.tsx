@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router";
-import HomePage from "./pages/HomePage";
-import StudioPage from "./pages/StudioPage";
+import { LandingPage, StudioPage } from "./pages";
+import RecordingScreen from "./pages/RecordingScreen";
 
-// Route configuration — / renders HomePage, /studio renders StudioPage
+// Route configuration
+// / renders LandingPage, /record renders RecordingScreen, /studio renders StudioPage
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/record" element={<RecordingScreen />} />
       <Route path="/studio" element={<StudioPage />} />
     </Routes>
   );
