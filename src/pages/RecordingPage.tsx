@@ -1,4 +1,4 @@
-import { useRecorder } from "../context/RecorderContext";
+import { useRecorder } from "@/hooks/useRecorder";
 import { Circle, Square, Monitor, Clock, Sparkles } from "lucide-react";
 
 const formatTime = (seconds: number) => {
@@ -9,7 +9,7 @@ const formatTime = (seconds: number) => {
   return `${mins}:${secs}`;
 };
 
-export default function RecordingScreen() {
+export default function RecordingPage() {
   const { recordingState, elapsedTime, startRecording, stopRecording } =
     useRecorder();
 

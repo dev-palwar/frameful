@@ -1,76 +1,35 @@
 import {
   ArrowRight,
-  Zap,
-  Eye,
-  Shield,
   MousePointer2,
   Play,
-  BookOpen,
-  Rocket,
-  MonitorPlay,
   Layers,
   Download,
   Sparkles,
   Video,
-  Ratio,
-  ImageIcon,
-  EyeOff,
   Mic,
   Scissors,
-  PresentationIcon,
-  Share2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router";
 
-/* ─────────────────────────── Nav ─────────────────────────── */
-function Nav() {
+/* ──────────────────── Landing Page ────────────────────── */
+export default function LandingPage() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a href="#" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Layers className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight">frameful</span>
-        </a>
-
-        <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-          <a
-            href="#how-it-works"
-            className="transition-colors hover:text-foreground"
-          >
-            How it works
-          </a>
-          <a
-            href="#features"
-            className="transition-colors hover:text-foreground"
-          >
-            Features
-          </a>
-          <a
-            href="#use-cases"
-            className="transition-colors hover:text-foreground"
-          >
-            Use cases
-          </a>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Log in
-          </Button>
-          <Button size="sm" className="gap-1.5">
-            Get started free
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Button>
-        </div>
-      </div>
-    </nav>
+    <div className="min-h-screen">
+      <main>
+        <Hero />
+        <HowItWorksSection />
+        <ExampleOutputSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </div>
   );
 }
 
 /* ─────────────────────────── Hero ─────────────────────────── */
 function Hero() {
+  const navigate = useNavigate();
   return (
     <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
       {/* Background gradient decoration */}
@@ -90,7 +49,7 @@ function Hero() {
         <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
           Record your screen.
           <br />
-          <span className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-purple-600 via-purple-500 to-purple-400 bg-clip-text text-transparent">
             Make it beautiful.
           </span>
         </h1>
@@ -107,6 +66,7 @@ function Hero() {
           <Button
             size="lg"
             className="gap-2 px-8 text-base shadow-lg shadow-purple-500/20"
+            onClick={() => navigate("/record")}
           >
             Start recording — it's free
             <ArrowRight className="h-4 w-4" />
@@ -137,7 +97,7 @@ function Hero() {
             </div>
 
             {/* Mock video preview area */}
-            <div className="relative bg-gradient-to-br from-purple-950 via-purple-900 to-purple-800 p-8 md:p-12">
+            <div className="relative bg-linear-to-br from-purple-950 via-purple-900 to-purple-800 p-8 md:p-12">
               {/* Inner "video" frame */}
               <div className="relative mx-auto aspect-video max-w-xl overflow-hidden rounded-lg border border-white/10 bg-[#1a1025] shadow-2xl">
                 {/* Mock code editor content */}
@@ -221,72 +181,6 @@ function Hero() {
   );
 }
 
-/* ─────────────────────── Problem ─────────────────────── */
-function ProblemSection() {
-  const painPoints = [
-    {
-      emoji: "🎥",
-      title: "Raw recordings look bad",
-      description:
-        "You hit record, do your thing, stop. The result? A flat, boring screencast with no focus or polish.",
-    },
-    {
-      emoji: "✂️",
-      title: "Editing takes forever",
-      description:
-        "Cropping, zooming, adding transitions — you spend more time in your video editor than actually working.",
-    },
-    {
-      emoji: "🖱️",
-      title: "Viewers lose track",
-      description:
-        "Small cursors, full-screen chaos. Audiences can't follow what you're clicking or where to look.",
-    },
-    {
-      emoji: "📐",
-      title: "Wrong format, every time",
-      description:
-        "You recorded in 16:9 but need a vertical clip for social. Re-recording is your only option.",
-    },
-  ];
-
-  return (
-    <section className="border-t border-border/50 bg-muted/30 py-20 md:py-28">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium tracking-wide text-purple-600 uppercase">
-            The problem
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-            Screen recording is easy.
-            <br />
-            Making it look good isn't.
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            Traditional tools give you raw footage. The rest is on you.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
-          {painPoints.map((point, i) => (
-            <div
-              key={i}
-              className="group rounded-xl border border-border/60 bg-card p-6 transition-all duration-200 hover:border-purple-200 hover:shadow-sm"
-            >
-              <div className="text-2xl">{point.emoji}</div>
-              <h3 className="mt-3 text-base font-semibold">{point.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {point.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ────────────────────── How It Works ─────────────────────── */
 function HowItWorksSection() {
   const steps = [
     {
@@ -329,7 +223,7 @@ function HowItWorksSection() {
 
         <div className="relative mt-16 grid gap-8 md:grid-cols-3">
           {/* Connecting line */}
-          <div className="absolute top-16 left-[16.6%] right-[16.6%] hidden h-px bg-gradient-to-r from-purple-200 via-purple-300 to-purple-200 md:block" />
+          <div className="absolute top-16 left-[16.6%] right-[16.6%] hidden h-px bg-linear-to-r from-purple-200 via-purple-300 to-purple-200 md:block" />
 
           {steps.map((step, i) => (
             <div key={i} className="relative text-center">
@@ -352,86 +246,6 @@ function HowItWorksSection() {
   );
 }
 
-/* ─────────────────────── Features ─────────────────────── */
-function FeaturesSection() {
-  const features = [
-    {
-      icon: MousePointer2,
-      title: "Auto zoom & pan",
-      description:
-        "Frameful detects clicks and cursor movement. Zooms and pans are generated automatically — no keyframing.",
-    },
-    {
-      icon: Zap,
-      title: "Adjustable effects",
-      description:
-        "Fine-tune zoom depth, position, and timing. Full control when you need it, automation when you don't.",
-    },
-    {
-      icon: ImageIcon,
-      title: "Custom backgrounds",
-      description:
-        "Choose from presets or set your own. Your video sits on a clean, styled canvas — not a raw desktop.",
-    },
-    {
-      icon: EyeOff,
-      title: "Hide browser frame",
-      description:
-        "Remove the browser chrome for a distraction-free, focused look. Just your content, nothing else.",
-    },
-    {
-      icon: Ratio,
-      title: "Any aspect ratio",
-      description:
-        "Export in 16:9, 9:16, 1:1, 4:3 — whatever the platform needs. No re-recording.",
-    },
-    {
-      icon: Shield,
-      title: "Local & private",
-      description:
-        "Everything renders offline on your machine. No uploads, no cloud processing. Your data stays yours.",
-    },
-  ];
-
-  return (
-    <section
-      id="features"
-      className="border-t border-border/50 bg-muted/30 py-20 md:py-28"
-    >
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium tracking-wide text-purple-600 uppercase">
-            Features
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-            Professional recordings.
-            <br />
-            No professional workflow.
-          </h2>
-        </div>
-
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-          {features.map((feature, i) => (
-            <div
-              key={i}
-              className="group rounded-xl border border-border/60 bg-card p-6 transition-all duration-200 hover:border-purple-200 hover:shadow-sm"
-            >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 text-purple-600 transition-colors duration-200 group-hover:bg-purple-500 group-hover:text-white">
-                <feature.icon className="h-5 w-5" />
-              </div>
-              <h3 className="text-base font-semibold">{feature.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ──────────────────── Example Output ──────────────────── */
 function ExampleOutputSection() {
   return (
     <section className="py-20 md:py-28">
@@ -505,7 +319,7 @@ function ExampleOutputSection() {
                 </span>
               </div>
             </div>
-            <div className="relative aspect-video bg-gradient-to-br from-purple-950 via-purple-900 to-purple-800 p-6">
+            <div className="relative aspect-video bg-linear-to-br from-purple-950 via-purple-900 to-purple-800 p-6">
               {/* Zoomed in, clean focus mock */}
               <div className="mx-auto h-full max-w-xs overflow-hidden rounded-lg border border-white/10 bg-[#1a1025] shadow-2xl">
                 <div className="space-y-2 p-4">
@@ -541,102 +355,13 @@ function ExampleOutputSection() {
   );
 }
 
-/* ────────────────────── Use Cases ─────────────────────── */
-function UseCasesSection() {
-  const useCases = [
-    {
-      icon: MonitorPlay,
-      title: "Product demos",
-      description:
-        "Show off features with smooth zooms that guide the viewer's eye. No narration needed — the video speaks.",
-      tag: "Marketing",
-    },
-    {
-      icon: BookOpen,
-      title: "Tutorials",
-      description:
-        "Walk through code, UI, or workflows. Auto-zoom keeps the focus exactly where it should be.",
-      tag: "Education",
-    },
-    {
-      icon: Share2,
-      title: "Social clips",
-      description:
-        "Export in 9:16 for Reels, Shorts, or TikTok. Turn any screen interaction into a shareable clip.",
-      tag: "Content",
-    },
-    {
-      icon: PresentationIcon,
-      title: "Presentations",
-      description:
-        "Embed polished recordings in slides. Better than a live demo that might break on stage.",
-      tag: "Teams",
-    },
-    {
-      icon: Rocket,
-      title: "Build in public",
-      description:
-        "Ship a feature, record the process, share a beautiful clip. Show your work without editing overhead.",
-      tag: "Indie hackers",
-    },
-    {
-      icon: Eye,
-      title: "Bug reports",
-      description:
-        "Record the issue with automatic zoom on the problem area. Clear, focused, unmistakable.",
-      tag: "Engineering",
-    },
-  ];
-
-  return (
-    <section
-      id="use-cases"
-      className="border-t border-border/50 bg-muted/30 py-20 md:py-28"
-    >
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium tracking-wide text-purple-600 uppercase">
-            Use cases
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-            One tool. Every video you need.
-          </h2>
-        </div>
-
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-          {useCases.map((useCase, i) => (
-            <div
-              key={i}
-              className="group rounded-xl border border-border/60 bg-card p-6 transition-all duration-200 hover:border-purple-200 hover:shadow-sm"
-            >
-              <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-600 transition-colors duration-200 group-hover:bg-purple-500 group-hover:text-white">
-                  <useCase.icon className="h-5 w-5" />
-                </div>
-                <span className="rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-600">
-                  {useCase.tag}
-                </span>
-              </div>
-              <h3 className="text-base font-semibold">{useCase.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {useCase.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ──────────────────────── CTA ────────────────────────── */
 function CTASection() {
   return (
     <section className="py-20 md:py-28">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 px-8 py-16 text-center text-white md:px-16">
+        <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-purple-600 via-purple-500 to-purple-700 px-8 py-16 text-center text-white md:px-16">
           {/* Decorative blobs */}
-          <div className="pointer-events-none absolute inset-0 -z-0">
+          <div className="pointer-events-none absolute inset-0 z-0">
             <div className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-white/5 blur-3xl" />
             <div className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-white/5 blur-3xl" />
           </div>
@@ -712,24 +437,5 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );
-}
-
-/* ──────────────────── Landing Page ────────────────────── */
-export default function LandingPage() {
-  return (
-    <div className="min-h-screen">
-      <Nav />
-      <main>
-        <Hero />
-        <ProblemSection />
-        <HowItWorksSection />
-        <FeaturesSection />
-        <ExampleOutputSection />
-        <UseCasesSection />
-        <CTASection />
-      </main>
-      <Footer />
-    </div>
   );
 }
