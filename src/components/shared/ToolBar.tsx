@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
-import Bg1 from "/home/devpalwar/Dropbox/me/wallpapers/wallhaven-21y32m.jpg";
-import Bg2 from "/home/devpalwar/Dropbox/me/wallpapers/9088083.jpg";
-import Bg3 from "/home/devpalwar/Dropbox/me/wallpapers/pexels-sergei-a-1322276-2589456.jpg";
+import bg1 from "@/assets/bgs/9088083.jpg";
+import bg2 from "@/assets/bgs/snowy-summit-landscape.jpg";
+import bg3 from "@/assets/bgs/thomas-griesbeck-BS-Uxe8wU5Y-unsplash.jpg";
+import bg4 from "@/assets/bgs/wallhaven-qrz8pl.jpg";
+import bg5 from "@/assets/bgs/wallpaperflare.com_wallpaper.jpg";
 import { Plus, Image as ImageIcon } from "lucide-react";
 
 interface Props {
@@ -9,7 +11,13 @@ interface Props {
 }
 
 const ToolBar: React.FC<Props> = ({ onBackgroundSelect }) => {
-  const [backgrounds, setBackgrounds] = useState<string[]>([Bg1, Bg2, Bg3]);
+  const [backgrounds, setBackgrounds] = useState<string[]>([
+    bg1,
+    bg2,
+    bg3,
+    bg4,
+    bg5,
+  ]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const addMoreBgHandler = () => {

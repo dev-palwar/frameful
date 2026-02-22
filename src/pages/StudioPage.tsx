@@ -6,7 +6,6 @@ import ToolBar from "@/components/shared/ToolBar";
 import VideoPlayer, {
   type VideoPlayerHandle,
 } from "@/components/video/VideoPlayer";
-import NoVideo from "@/components/video/NoVideo";
 
 export default function StudioPage() {
   const navigate = useNavigate();
@@ -215,7 +214,7 @@ export default function StudioPage() {
             <div className="bg-white/10 dark:bg-black/40 border border-white/20 overflow-hidden flex flex-col gap-8">
               <VideoPlayer
                 ref={videoPlayerRef}
-                videoUrl={videoUrl}
+                videoUrl={videoUrl as string}
                 background={background}
               />
             </div>

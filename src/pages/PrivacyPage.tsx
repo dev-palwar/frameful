@@ -130,11 +130,11 @@ export default function PrivacyPage() {
           <Section title="8. Contact">
             Questions about this policy? Reach out at{" "}
             <a
-              href="mailto:privacy@frameful.app"
+              href="mailto:devpalwar06@gmail.com"
               className="font-medium transition-colors hover:text-foreground"
               style={{ color: "#8b5cf6" }}
             >
-              privacy@frameful.app
+              mail
             </a>
             .
           </Section>
