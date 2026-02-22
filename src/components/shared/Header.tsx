@@ -1,3 +1,4 @@
+import { GithubIcon } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 
 const Header = () => {
@@ -22,6 +23,9 @@ const Header = () => {
           >
             FrameFul
           </p>
+        </div>
+        <div className="p-2 rounded-full bg-chart-1 text-white hover:bg-gray-200 cursor-pointer">
+          <GithubIcon />
         </div>
       </div>
     </nav>
