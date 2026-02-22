@@ -107,7 +107,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
         <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
           {/* Blurred Background Layer */}
           <div
-            className="absolute inset-0 bg-cover bg-center scale-110 blur-[1px] opacity-80 rounded-lg"
+            className="absolute inset-0 bg-cover bg-center scale-100 blur-[1px] opacity-80"
             style={{
               backgroundImage: background ? `url(${background})` : "none",
             }}
@@ -115,19 +115,19 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
 
           {/* Video Layer */}
           <div
-            className={`absolute inset-0 flex items-center justify-center p-8 ${className}`}
+            className={`absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-8 ${className}`}
           >
             <video
               ref={videoRef}
               id="studio-video-player"
               src={videoUrl}
-              className="w-full h-full object-contain rounded-lg shadow-2xl"
+              className="w-full h-full object-contain rounded-lg shadow-lg shadow-black/30"
             />
           </div>
         </div>
 
         {/* Controls Section - Separate Below */}
-        <div className="space-y-5 p-6 bg-linear-to-b from-transparent to-black/5">
+        <div className="space-y-4 px-6 pt-2 pb-5 bg-linear-to-b from-transparent to-black/5">
           {/* Timeline */}
           {duration > 0 && (
             <Timeline
@@ -144,7 +144,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
           <div className="flex items-center justify-center">
             <button
               onClick={handlePlayPause}
-              className="group relative px-8 py-3.5 font-semibold text-white text-sm overflow-hidden transition-all duration-300 cursor-pointer shadow-lg shadow-violet-500/20"
+              className="group relative px-8 py-3.5 font-semibold text-white text-sm overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-lg shadow-violet-500/20"
               style={{
                 background: "linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)",
               }}

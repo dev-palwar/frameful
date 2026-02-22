@@ -49,7 +49,7 @@ function Hero() {
         <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
           Record your screen.
           <br />
-          <span className="bg-linear-to-r from-purple-600 via-purple-500 to-purple-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-purple-300 via-purple-500 to-purple-600 bg-clip-text text-transparent">
             Make it beautiful.
           </span>
         </h1>
@@ -78,7 +78,7 @@ function Hero() {
         </div>
 
         <p className="mt-4 text-xs text-muted-foreground">
-          Works on Chrome, Edge & Brave · macOS, Windows, Linux
+          Works on Firefox, Chrome, Edge & Brave
         </p>
 
         {/* Hero visual mock — browser recorder preview */}

@@ -39,35 +39,46 @@ export default function Timeline({
     setDragging(handle);
   };
 
+  const handleTouchStart = (handle: "start" | "end") => {
+    setDragging(handle);
+  };
+
   useEffect(() => {
     if (!dragging) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const newTime = pixelToTime(e.clientX);
+    const getClientX = (e: MouseEvent | TouchEvent): number => {
+      if ("touches" in e) return e.touches[0]?.clientX ?? 0;
+      return e.clientX;
+    };
+
+    const handleMove = (e: MouseEvent | TouchEvent) => {
+      const newTime = pixelToTime(getClientX(e));
 
       if (dragging === "start") {
-        // Prevent start handle from crossing end handle (maintain minimum duration)
         const maxStart = trimEnd - MIN_TRIM_DURATION;
         const clampedStart = Math.max(0, Math.min(newTime, maxStart));
         setTrimStart(clampedStart);
       } else if (dragging === "end") {
-        // Prevent end handle from crossing start handle (maintain minimum duration)
         const minEnd = trimStart + MIN_TRIM_DURATION;
         const clampedEnd = Math.max(minEnd, Math.min(newTime, duration));
         setTrimEnd(clampedEnd);
       }
     };
 
-    const handleMouseUp = () => {
-      setDragging(null);
-    };
+    const handleUp = () => setDragging(null);
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mousemove", handleMove as EventListener);
+    document.addEventListener("mouseup", handleUp);
+    document.addEventListener("touchmove", handleMove as EventListener, {
+      passive: false,
+    });
+    document.addEventListener("touchend", handleUp);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mousemove", handleMove as EventListener);
+      document.removeEventListener("mouseup", handleUp);
+      document.removeEventListener("touchmove", handleMove as EventListener);
+      document.removeEventListener("touchend", handleUp);
     };
   }, [
     dragging,
@@ -92,12 +103,12 @@ export default function Timeline({
   return (
     <div className="w-full space-y-3">
       {/* Time Labels */}
-      <div className="flex items-center justify-between text-xs text-muted-foreground">
-        <span className="font-mono">{formatTime(trimStart)}</span>
-        <span className="text-[10px] opacity-60">
+      <div className="flex items-center justify-between text-xs text-muted-foreground gap-2">
+        <span className="font-mono shrink-0">{formatTime(trimStart)}</span>
+        <span className="text-[10px] opacity-60 truncate text-center">
           Duration: {formatTime(trimEnd - trimStart)}
         </span>
-        <span className="font-mono">{formatTime(trimEnd)}</span>
+        <span className="font-mono shrink-0">{formatTime(trimEnd)}</span>
       </div>
 
       {/* Timeline Track */}
@@ -139,6 +150,7 @@ export default function Timeline({
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 cursor-ew-resize group"
           style={{ left: `${startPercent}%` }}
           onMouseDown={() => handleMouseDown("start")}
+          onTouchStart={() => handleTouchStart("start")}
         >
           <div className="w-4 h-10 bg-white dark:bg-gray-800 border-2 border-violet-500 rounded-md shadow-lg group-hover:scale-110 transition-transform">
             <div className="w-full h-full flex items-center justify-center">
@@ -152,6 +164,7 @@ export default function Timeline({
           className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 z-30 cursor-ew-resize group"
           style={{ left: `${endPercent}%` }}
           onMouseDown={() => handleMouseDown("end")}
+          onTouchStart={() => handleTouchStart("end")}
         >
           <div className="w-4 h-10 bg-white dark:bg-gray-800 border-2 border-violet-500 rounded-md shadow-lg group-hover:scale-110 transition-transform">
             <div className="w-full h-full flex items-center justify-center">
